@@ -1,0 +1,26 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: mybatis-demo
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mybatis_plus_demo?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+  resources:
+    static-locations: classpath:/static/
+  servlet:
+    multipart:
+      # 设置单个文件大小
+      max-file-size: 100MB
+      # 设置单次请求文件的总大小
+      max-request-size: 100MB
+
+file:
+  #文件上传目录 绝对路径 末尾请加 /
+#  path: F:/files/ #windows
+  path: /Users/jerry/Files/oss/ #linux
+  #文件预览、下载的url, 末尾请勿加 /
+  url: http://localhost:9000/files
