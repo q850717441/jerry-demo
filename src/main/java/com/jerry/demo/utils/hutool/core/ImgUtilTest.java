@@ -16,9 +16,9 @@ import java.io.IOException;
  */
 public class ImgUtilTest {
     /** 测试图片地址 */
-    private String testImg = "/Users/jerry/Files/oss/20200721/0b5a6229-3462-429a-a4b1-71e2f72d1757.jpg";
+    private static String testImg = "/Users/jerry/Files/oss/0b5a6229-3462-429a-a4b1-71e2f72d1757.jpg";
     /** 图片处理后地址 */
-    private String resultImg = "/Users/jerry/Files/oss/20200721/face_result.jpg";
+    private static String resultImg = "/Users/jerry/Files/oss/face_result.jpg";
 
     /**
      * scale 缩放图片

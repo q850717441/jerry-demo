@@ -1,4 +1,4 @@
-package com.jerry.demo.utils.fileupload;
+package com.jerry.demo.utils.fileutil;
 
 import org.springframework.web.multipart.MultipartFile;
 
