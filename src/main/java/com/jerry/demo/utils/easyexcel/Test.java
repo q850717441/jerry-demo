@@ -1,14 +1,9 @@
 package com.jerry.demo.utils.easyexcel;
 
-import com.alibaba.excel.annotation.ExcelProperty;
-import com.alibaba.excel.metadata.BaseRowModel;
 import com.alibaba.excel.metadata.Sheet;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,7 +73,7 @@ public class Test {
      */
     @org.junit.Test
     public void writeWithTemplate(){
-        String filePath = "/home/chenmingjian/Downloads/测试.xlsx";
+        String filePath = "/Users/jerry/Downloads/测试.xlsx";
         ArrayList<TableHeaderExcelProperty> data = new ArrayList<>();
         for(int i = 0; i < 4; i++){
             TableHeaderExcelProperty tableHeaderExcelProperty = new TableHeaderExcelProperty();
