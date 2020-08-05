@@ -1,4 +1,4 @@
-package com.jerry.demo.utils.common;
+package com.jerry.demo.utils.time;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 
@@ -16,10 +16,13 @@ import java.util.List;
 /**
  * @author: Jerry
  * @create: 2020-05-12
- * @update: 2020-06-15
- * @description: 时间工具
+ * @update: 2020-08-05
+ * @description: 时间工具-old
  */
 public class DateUtils {
+    /** 时间格式(yyyyMMdd) */
+    public final static String DATEPATTERN = "yyyyMMdd";
+
     /**
      * 仅显示年月日，例如 2015-08-11.
      */
@@ -81,19 +84,27 @@ public class DateUtils {
             "yyyy/MM/dd HH:mm:ss", "yyyy/MM/dd HH:mm"};
 
     /**
-     * 获取日期时间字符串，默认格式为（yyyy-MM-dd）.
-     * @param date 需要转化的日期时间
-     * @param pattern 时间格式，例如"yyyy-MM-dd" "HH:mm:ss" "E"等
-     * @return String 格式转换后的时间字符串
+     * 将Date以pattern格式为字符串
+     * @param date Date
+     * @param pattern 格式
+     * @return String
      */
-    public static String formatDate(Date date, Object... pattern) {
-        String formatDate = null;
-        if (pattern != null && pattern.length > 0) {
-            formatDate = DateFormatUtils.format(date, pattern[0].toString());
-        } else {
-            formatDate = DateFormatUtils.format(date, DateUtils.DATE_FORMAT);
+    public static String format(Date date, String pattern) {
+        if (date != null) {
+            SimpleDateFormat df = new SimpleDateFormat(pattern);
+            return df.format(date);
         }
-        return formatDate;
+        return null;
+    }
+
+
+    /**
+     * 生成当前时间戳
+     * @return String
+     */
+    public static String getNowTimeStamp() {
+        DateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        return sdf.format(new Date());
     }
 
     /**
@@ -139,8 +150,7 @@ public class DateUtils {
      * @throws ParseException
      */
     public static Time stringToTimeUtil(String timeStr) {
-        //HH为24小时制,hh为12小时制
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");//HH为24小时制,hh为12小时制
         try {
             Time time = new Time(simpleDateFormat.parse(timeStr).getTime());
             return time;
@@ -155,7 +165,7 @@ public class DateUtils {
      * @return String 日期字符串，例如2015-08-11
      */
     public static String getDate() {
-        return DateFormatUtils.format(new Date(), DateUtils.DATE_FORMAT);
+        return getDate(DateUtils.DATE_FORMAT);
     }
 
     /**
@@ -195,6 +205,21 @@ public class DateUtils {
         return DateFormatUtils.format(date, pattern);
     }
 
+    /**
+     * 获取日期时间字符串，默认格式为（yyyy-MM-dd）.
+     * @param date 需要转化的日期时间
+     * @param pattern 时间格式，例如"yyyy-MM-dd" "HH:mm:ss" "E"等
+     * @return String 格式转换后的时间字符串
+     */
+    public static String formatDate(Date date, Object... pattern) {
+        String formatDate = null;
+        if (pattern != null && pattern.length > 0) {
+            formatDate = DateFormatUtils.format(date, pattern[0].toString());
+        } else {
+            formatDate = DateFormatUtils.format(date, DateUtils.DATE_FORMAT);
+        }
+        return formatDate;
+    }
 
     /**
      * 获取当前年份字符串.
