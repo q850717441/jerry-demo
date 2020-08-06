@@ -1,4 +1,4 @@
-package com.jerry.demo.domain;
+package com.jerry.demo.domain.vo;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

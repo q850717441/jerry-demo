@@ -1,8 +1,8 @@
 package com.jerry.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.jerry.demo.domain.VideoTransCodeVO;
-import com.jerry.demo.domain.VideoVO;
+import com.jerry.demo.domain.vo.VideoTransCodeVO;
+import com.jerry.demo.domain.vo.VideoVO;
 import com.jerry.demo.utils.common.DataResult;
 import com.jerry.demo.utils.fileutil.FileDownload;
 import org.springframework.web.bind.annotation.PostMapping;
