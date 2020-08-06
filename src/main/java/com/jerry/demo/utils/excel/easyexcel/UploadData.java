@@ -1,4 +1,4 @@
-package com.jerry.demo.utils.easyexcel;
+package com.jerry.demo.utils.excel.easyexcel;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.jerry.demo.utils.easyexcel;
+package com.jerry.demo.utils.excel.easyexcel;
 
 import com.alibaba.excel.metadata.Sheet;
 import org.junit.runner.RunWith;

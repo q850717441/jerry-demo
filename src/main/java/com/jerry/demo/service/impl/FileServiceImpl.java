@@ -2,6 +2,7 @@ package com.jerry.demo.service.impl;
 
 import com.jerry.demo.domain.ImgVO;
 import com.jerry.demo.service.FileService;
+import com.jerry.demo.utils.common.Constants;
 import com.jerry.demo.utils.common.DataResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,6 @@ import java.util.UUID;
  */
 @Service
 public class FileServiceImpl implements FileService {
-    private String localDir = "/Users/jerry/Downloads/";
 
     @Override
     public DataResult imgUpload(MultipartFile uploadFile) {
@@ -45,7 +45,7 @@ public class FileServiceImpl implements FileService {
             //3.实现分文件存储  按照yyyy/MM/dd/
             String dateDir = new SimpleDateFormat("yyyy/MM/dd/").format(new Date());
             //生成文件目录    D://image/yyyy/MM/dd
-            String fileDirPath = localDir + dateDir;
+            String fileDirPath = Constants.STORAGE_LOCATION + dateDir;
             File dirFile = new File(fileDirPath);
             //如果没有目录,则创建目录
             if (!dirFile.exists()) {
