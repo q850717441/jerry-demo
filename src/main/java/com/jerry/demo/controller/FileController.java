@@ -1,7 +1,7 @@
 package com.jerry.demo.controller;
 
-import com.jerry.demo.domain.EasyUiImg;
 import com.jerry.demo.service.FileService;
+import com.jerry.demo.utils.common.DataResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +21,7 @@ public class FileController {
     private FileService fileService;
 
     @RequestMapping("/pic/upload")
-    public EasyUiImg imgUpload(MultipartFile uploadFile) {
+    public DataResult imgUpload(MultipartFile uploadFile) {
         return fileService.imgUpload(uploadFile);
     }
 }

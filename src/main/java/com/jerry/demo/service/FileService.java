@@ -1,6 +1,6 @@
 package com.jerry.demo.service;
 
-import com.jerry.demo.domain.EasyUiImg;
+import com.jerry.demo.utils.common.DataResult;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -15,6 +15,6 @@ public interface FileService {
      * @param uploadFile 图片文件
      * @return
      */
-    EasyUiImg imgUpload(MultipartFile uploadFile);
+    DataResult imgUpload(MultipartFile uploadFile);
 
 }

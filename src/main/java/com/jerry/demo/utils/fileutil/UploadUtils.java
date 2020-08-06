@@ -5,9 +5,7 @@ import com.jerry.demo.config.FileUploadProperties;
 import com.jerry.demo.utils.common.DataResult;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -22,8 +20,6 @@ import java.util.Map;
  * @create: 2020-07-20 14:40
  * @description: 文件上传
  */
-@RestController
-@RequestMapping("/upload")
 public class UploadUtils {
 
     @Resource
@@ -32,23 +28,6 @@ public class UploadUtils {
     @Resource
     private Environment environment;
 
-    /**
-     * 测试图片上传后解析
-     */
-//    @PostMapping("/import")
-//    public DataResult testImageUpload(@RequestParam("file") MultipartFile file) throws IOException, ImageReadException {
-//        String property = environment.getProperty("file.path");
-//        String s = uploadUtil(file, property);
-//        File picture = new File(s);
-//        ImageInfo imageInfo = Imaging.getImageInfo(picture);
-//        Map<String, Object> resultMap = new HashMap<>();
-//        resultMap.put("src", s);
-//        resultMap.put("Physical Height Dpi", imageInfo.getPhysicalHeightDpi());
-//        resultMap.put("Physical Width Dpi", imageInfo.getPhysicalWidthDpi());
-//        return DataResult.success(resultMap);
-//    }
-
-    //    @PostMapping(value = "/import", headers = "content-type=multipart/*")
     @PostMapping("/import")
     public DataResult importSqlLite(@RequestParam("file") MultipartFile file) throws IOException {
         //判断文件是否空
