@@ -14,7 +14,6 @@ import javax.annotation.Resource;
  * @description: 文件接口
  */
 @RestController
-@RequestMapping("/")
 public class FileController {
 
     @Resource

@@ -16,9 +16,9 @@ import java.io.IOException;
  */
 public class ImgUtilTest {
     /** 测试图片地址 */
-    private static String testImg = "/Users/jerry/Files/oss/0b5a6229-3462-429a-a4b1-71e2f72d1757.jpg";
+    private static final String testImg = "/Users/jerry/Downloads/MLSH_TP_202007221078.JPG";
     /** 图片处理后地址 */
-    private static String resultImg = "/Users/jerry/Files/oss/face_result.jpg";
+    private static final String resultImg = "/Users/jerry/Downloads/face_result.jpg";
 
     /**
      * scale 缩放图片
@@ -26,11 +26,9 @@ public class ImgUtilTest {
      */
     @Test
     public void scale() {
-        ImgUtil.scale(
-                FileUtil.file(testImg),
-                FileUtil.file(resultImg),
-                0.5f//缩放比例
-        );
+        //缩放比例
+        float scale = 0.1f;
+        ImgUtil.scale(FileUtil.file(testImg), FileUtil.file(resultImg), scale);
     }
 
     /**

@@ -10,6 +10,7 @@ import java.util.stream.IntStream;
 /**
  * @author: Jerry
  * @create: 2020-05-22 17:47
+ * @update: 2020-05-22
  * @description: 身份证工具类
  */
 public class IdCardUtil {

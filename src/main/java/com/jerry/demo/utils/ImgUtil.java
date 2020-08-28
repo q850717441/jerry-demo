@@ -15,15 +15,29 @@ import java.net.URL;
 /**
  * @author: Jerry
  * @create: 2020-07-21 13:48
+ * @update: 2020-08-27
  * @description: 图片工具
  */
 public class ImgUtil {
     /** 测试图片地址 */
-    private static String testImg = "/Users/jerry/Files/oss/0b5a6229-3462-429a-a4b1-71e2f72d1757.jpg";
+    private static final String testImg = "/Users/jerry/Downloads/0b5a6229-3462-429a-a4b1-71e2f72d1757.jpg";
     /** 图片处理后地址 */
-    private static String resultImg = "/Users/jerry/Files/oss/face_result.jpg";
+    private static final String resultImg = "/Users/jerry/Downloads/face_result.jpg";
     private static String resultImgUrl = "/Users/jerry/Files/oss/";
 
+
+    /**
+     * 实现斜水印铺满整张图
+     */
+    public static void main(String[] args) throws Exception {
+        System.out.println("..添加水印图片开始...");
+        //修改默认参数 设置水印间隔
+//        ImgUtil.setImageMarkOptions(0.0f, 0, 20);
+        String watermarkPath = "/Users/jerry/Downloads/logo.png";  //水印图片
+        //水印图片地址 加水印图片地址 上传成功后文件地址
+        ImgUtil.waterMarkByImg(watermarkPath, testImg, resultImg);
+        System.out.println("..添加水印图片结束...");
+    }
 
     /**
      * 使用 图像处理库 Sanselan 获取本地图片的信息
@@ -341,6 +355,8 @@ public class ImgUtil {
     private static double degree = 0f;
     /** 水印图片间隔 */
     private static int interval = 0;
+    /** 水印图片与源图得比例 */
+    private static float proportion = 0.3f;
 
     /**
      * 设置水印参数，不设置就使用默认值
@@ -348,7 +364,7 @@ public class ImgUtil {
      * @param degree 水印图片旋转角度 *
      * @param interval 水印图片间隔
      */
-    public static void setImageMarkOptions(float alpha, int degree, int interval) {
+    public static void setImageMarkOptions(float alpha, int degree, int interval, float proportion) {
         if (alpha != 0.0f) {
             ImgUtil.alpha = alpha;
         }
@@ -358,10 +374,13 @@ public class ImgUtil {
         if (interval != 0f) {
             ImgUtil.interval = interval;
         }
+        if (proportion != 0f) {
+            ImgUtil.proportion = proportion;
+        }
     }
 
     /**
-     * 给图片添加水印图片
+     * 给图片添加水印图片（保留源文件）
      * @param waterImgPath 水印图片路径
      * @param srcImgPath 源图片路径
      * @param targetPath 目标图片路径
@@ -371,7 +390,7 @@ public class ImgUtil {
     }
 
     /**
-     * 给图片添加水印图片
+     * 给图片添加水印图片(替换源文件)
      * @param waterImgPath 水印图片路径
      * @param srcImgPath 源图片路径
      */
@@ -391,6 +410,17 @@ public class ImgUtil {
      * @param degree 水印图片旋转角度
      */
     public static void waterMarkByImg(String waterImgPath, String srcImgPath, String targetPath, double degree) throws Exception {
+        //判断目标路径是否存在，不存在则创建
+        File uploadDirectory = new File(targetPath.substring(0, targetPath.lastIndexOf("/") + 1));
+        if (uploadDirectory.exists()) {
+            if (!uploadDirectory.isDirectory()) {
+                uploadDirectory.delete();
+            }
+        } else {
+            //如果父目录不存在，连同父目录一起创建。
+            uploadDirectory.mkdirs();
+        }
+
         OutputStream os = null;
         try {
             Image srcImg = ImageIO.read(new File(srcImgPath));
@@ -414,14 +444,19 @@ public class ImgUtil {
             ImageIcon imgIcon = new ImageIcon(waterImgPath);
             // 5、得到Image对象。
             Image img = imgIcon.getImage();
+            // 根据图片大小设置水印大小
+            int watermarkImageWidth = img.getWidth(null);
+            int watermarkImageHeight = img.getHeight(null);
+            int srcWidth = srcImg.getWidth(null);//源图得宽度
+            double dmarkWidth = srcWidth * proportion;// 按图片宽度比例设置水印的宽度
+            double dmarkHeight = dmarkWidth * ((double) watermarkImageHeight / (double) watermarkImageWidth);//强转为double计算宽高比例
+            int imarkWidth = (int) dmarkWidth;
+            int imarkHeight = (int) dmarkHeight;
             g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
             // 6、水印图片的位置
-            for (int height = interval + imgIcon.getIconHeight(); height < buffImg
-                    .getHeight(); height = height + interval + imgIcon.getIconHeight()) {
-                for (int weight = interval + imgIcon.getIconWidth(); weight < buffImg
-                        .getWidth(); weight = weight + interval + imgIcon.getIconWidth()) {
-                    g.drawImage(img, weight - imgIcon.getIconWidth(), height
-                            - imgIcon.getIconHeight(), null);
+            for (int height = interval + imarkHeight; height < buffImg.getHeight(); height = height + interval + imarkHeight) {
+                for (int weight = interval + imarkWidth; weight < buffImg.getWidth(); weight = weight + interval + imarkWidth) {
+                    g.drawImage(img, weight - imarkWidth, height - imarkHeight, imarkWidth, imarkHeight, null);
                 }
             }
             g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
@@ -443,21 +478,5 @@ public class ImgUtil {
             }
         }
     }
-
-    /**
-     * 实现斜水印铺满整张图
-     */
-    @Test
-    public void waterMarkAllByImg() throws Exception {
-        System.out.println("..添加水印图片开始...");
-        //修改默认参数 设置水印间隔
-        ImgUtil.setImageMarkOptions(0.0f, 0, 20);
-        String watermarkPath = "/Users/jerry/Downloads/20160625231509276.png";  //水印图片
-        String imgPath = testImg;//需加水印图片
-        //水印图片地址 加水印图片地址 上传成功后文件地址
-        ImgUtil.waterMarkByImg(watermarkPath, imgPath, resultImg);
-        System.out.println("..添加水印图片结束...");
-    }
-
 
 }

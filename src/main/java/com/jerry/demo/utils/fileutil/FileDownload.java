@@ -1,6 +1,5 @@
 package com.jerry.demo.utils.fileutil;
 
-import com.jerry.demo.utils.common.DataResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.util.IOUtils;
@@ -28,22 +27,26 @@ public class FileDownload {
 
 
     @GetMapping("/import")
-    public DataResult test(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void test(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        //压缩包
 //        File file = new File("/Users/jerry/Files/oss");
 //        String zipPath = file.getPath() + ".zip";
 //        ZipUtil.zip(file.getPath(), zipPath);
-//        downloadLocal(request, response, new File(zipPath), true);
+
+        //下载本地文件
+        File file = new File("/Users/jerry/Files/oss/testImg.jpg");
+        downloadLocal(request, response, file, false);
 
         //下载网络文件
-        String s = downloadFile(filePath, "/Users/jerry/Downloads/test/");
-        return DataResult.success();
+//        String s = downloadFile(filePath, "/Users/jerry/Downloads/test/");
     }
 
     /**
-     * 下载本地文件
+     * 下载DB文件
      * @param request /
      * @param response /
      * @param file /
+     * @param deleteOnExit 在JVM进程退出的时候删除文件,通常用在临时文件的删除.(删除原文件）
      */
     public static void downloadLocal(HttpServletRequest request, HttpServletResponse response, File file, boolean deleteOnExit) {
         response.setCharacterEncoding(request.getCharacterEncoding());

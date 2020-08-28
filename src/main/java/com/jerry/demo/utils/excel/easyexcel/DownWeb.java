@@ -23,7 +23,7 @@ public class DownWeb {
      * <p>2. 设置返回的 参数
      * <p>3. 直接写，这里注意，finish的时候会自动关闭OutputStream,当然你外面再关闭流问题不大
      */
-    @GetMapping("download")
+    @GetMapping("/download")
     public void download(HttpServletResponse response) throws IOException {
         // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
         response.setContentType("application/vnd.ms-excel");

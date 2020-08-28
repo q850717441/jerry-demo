@@ -1,4 +1,4 @@
-package com.jerry.demo.utils.time;
+package com.jerry.demo.utils.date;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 
@@ -549,11 +549,10 @@ public class DateUtils {
      * 对日期进行加减操作
      * @param date       要进行加减天数的日期
      * @param addOrMinus 对日期加减天数（eg：加一天：1 减一天：-1）
-     * @return
-     * @throws ParseException
+     * @return Date
      */
     public static Date dateAddOrMinus(Date date, Integer addOrMinus) {
-        if (addOrMinus == null || "".equals(addOrMinus)) {
+        if (addOrMinus == null) {
             addOrMinus = 0;
         }
         Calendar cal = Calendar.getInstance();//使用默认时区和语言环境获得一个日历
@@ -570,15 +569,15 @@ public class DateUtils {
      * @return 日期Date
      */
     public static Date adjustDateByHour(Date date, Integer num, int type) {
-        Calendar Cal = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Cal.setTime(date);
+        cal.setTime(date);
         if (type == 0) {
-            Cal.add(Calendar.MINUTE, -num);
+            cal.add(Calendar.MINUTE, -num);
         } else {
-            Cal.add(Calendar.MINUTE, num);
+            cal.add(Calendar.MINUTE, num);
         }
-        return Cal.getTime();
+        return cal.getTime();
     }
 
 }
