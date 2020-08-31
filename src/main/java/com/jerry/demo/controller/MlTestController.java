@@ -5,16 +5,12 @@ import com.jerry.demo.domain.vo.VideoTransCodeVO;
 import com.jerry.demo.domain.vo.VideoVO;
 import com.jerry.demo.utils.common.DataResult;
 import com.jerry.demo.utils.fileutil.FileDownload;
+import com.jerry.demo.utils.httputil.HttpUtil;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 
 /**
@@ -74,7 +70,7 @@ public class MlTestController {
         data.put("signature", "eNmS0Drh45pcXsJWx3dPQG6buMIHnz60");//加密秘钥
         //todo 缺少回调地址
         data.put("callback", "/ml/transcodeCallback");//回调地址
-        return sendPost(url, data);
+        return HttpUtil.sendPost1(url, data);
     }
 
     public static String createTask() {
@@ -95,46 +91,8 @@ public class MlTestController {
         data.put("outputs", outputs);
         data.put("callback", "100");//转码回调
         data.put("signature", "eNmS0Drh45pcXsJWx3dPQG6buMIHnz60");//加密秘钥
-        return sendPost(url, data);
+        return HttpUtil.sendPost1(url, data);
     }
 
-    /**
-     * 用HTTP的方式发送JSON报文请求
-     */
-    private static String sendPost(String url1, JSONObject obj) {
-        String resp = null;
-        String query = obj.toString();
-        System.out.println(query);
-        try {
-            URL url = new URL(url1); //url地址
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-            connection.setRequestMethod("POST");
-            connection.setUseCaches(false);
-            connection.setInstanceFollowRedirects(true);
-            connection.setRequestProperty("Content-Type", "application/json");
-            connection.connect();
-            try (OutputStream os = connection.getOutputStream()) {
-                os.write(query.getBytes("UTF-8"));
-            }
-            try (BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream()))) {
-                String lines;
-                StringBuffer sbf = new StringBuffer();
-                while ((lines = reader.readLine()) != null) {
-                    lines = new String(lines.getBytes(), "utf-8");
-                    sbf.append(lines);
-                }
-                resp = sbf.toString();
-
-            }
-            connection.disconnect();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return resp;
-    }
 
 }
