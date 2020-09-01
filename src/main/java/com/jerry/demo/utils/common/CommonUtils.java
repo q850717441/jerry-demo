@@ -50,4 +50,9 @@ public class CommonUtils {
         String uuid = UUID.randomUUID().toString().trim().replaceAll("-", "");
         return uuid;
     }
+
+    /**
+     * Java集合之List多级递归菜单
+     */
+
 }

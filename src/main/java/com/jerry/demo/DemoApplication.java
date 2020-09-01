@@ -25,4 +25,9 @@ public class DemoApplication {
 				env.getProperty("server.port"));
 	}
 
+	//端口检测
+//	static {
+//		PortUtil.checkPort(6379, "Redis 服务端", true);
+//	}
+
 }
