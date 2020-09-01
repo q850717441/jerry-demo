@@ -1,4 +1,4 @@
-package com.jerry.demo.exception.code;
+package com.jerry.demo.common.exception.code;
 
 
 /**

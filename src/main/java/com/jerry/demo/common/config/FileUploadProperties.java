@@ -1,4 +1,4 @@
-package com.jerry.demo.config;
+package com.jerry.demo.common.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -36,7 +36,7 @@ public class FileUploadProperties {
             this.accessUrl = null;
         }
         this.accessUrl = url.substring(url.lastIndexOf("/")) + "/**";
-        System.out.println("accessUrl="+accessUrl);
+//        System.out.println("accessUrl="+accessUrl);
     }
 
     public String getAccessUrl() {

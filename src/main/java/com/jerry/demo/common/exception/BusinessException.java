@@ -1,7 +1,7 @@
-package com.jerry.demo.exception;
+package com.jerry.demo.common.exception;
 
-import com.jerry.demo.exception.code.BaseResponseCode;
-import com.jerry.demo.exception.code.ResponseCodeInterface;
+import com.jerry.demo.common.exception.code.BaseResponseCode;
+import com.jerry.demo.common.exception.code.ResponseCodeInterface;
 
 /**
  * BusinessException

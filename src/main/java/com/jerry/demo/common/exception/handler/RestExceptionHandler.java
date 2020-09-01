@@ -1,8 +1,8 @@
-package com.jerry.demo.exception.handler;
+package com.jerry.demo.common.exception.handler;
 
-import com.jerry.demo.exception.BusinessException;
-import com.jerry.demo.exception.RequestLimitException;
-import com.jerry.demo.exception.code.BaseResponseCode;
+import com.jerry.demo.common.exception.BusinessException;
+import com.jerry.demo.common.exception.RequestLimitException;
+import com.jerry.demo.common.exception.code.BaseResponseCode;
 import com.jerry.demo.utils.common.DataResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.ObjectError;

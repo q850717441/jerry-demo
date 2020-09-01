@@ -1,4 +1,4 @@
-package com.jerry.demo.config;
+package com.jerry.demo.common.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;

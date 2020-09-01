@@ -15,7 +15,7 @@ import java.util.UUID;
 public class CommonUtils {
 
     /**
-     * layUI 时间拆分
+     * layUI 时间拆分:开始与结束
      * @param createTime 时间描述
      * @return List<String>
      */

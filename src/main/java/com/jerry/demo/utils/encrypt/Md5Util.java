@@ -16,12 +16,12 @@ public class Md5Util {
     /**
      * base64加密
      */
-    public static String md5String(String oldPwd) {
+    public static String md5String(String pwd) {
         try {
             //实现Base64的编码
             BASE64Encoder base64 = new BASE64Encoder();
             //进行加密
-            return base64.encode(oldPwd.getBytes(StandardCharsets.UTF_8));
+            return base64.encode(pwd.getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -30,11 +30,10 @@ public class Md5Util {
     /**
      * MD5加密
      */
-    public static String stringToMd5(String plainText) {
+    public static String stringToMd5(String pwd) {
         byte[] secretBytes;
         try {
-            secretBytes = MessageDigest.getInstance("md5").digest(
-                    plainText.getBytes());
+            secretBytes = MessageDigest.getInstance("md5").digest(pwd.getBytes());
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("没有这个md5算法！");
         }
@@ -43,9 +42,5 @@ public class Md5Util {
             md5code.insert(0, "0");
         }
         return md5code.toString();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(stringToMd5("123456"));
     }
 }

@@ -1,6 +1,6 @@
 package com.jerry.demo.utils.fileutil;
 
-import com.jerry.demo.exception.BusinessException;
+import com.jerry.demo.common.exception.BusinessException;
 import com.jerry.demo.utils.date.DateUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.web.multipart.MultipartFile;

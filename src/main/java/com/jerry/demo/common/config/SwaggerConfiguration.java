@@ -1,4 +1,4 @@
-package com.jerry.demo.config;
+package com.jerry.demo.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

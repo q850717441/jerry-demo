@@ -1,6 +1,6 @@
-package com.jerry.demo.exception;
+package com.jerry.demo.common.exception;
 
-import com.jerry.demo.exception.code.BaseResponseCode;
+import com.jerry.demo.common.exception.code.BaseResponseCode;
 
 /**
  *  HTTP请求超出设定的限制

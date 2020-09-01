@@ -1,7 +1,7 @@
 package com.jerry.demo.utils.common;
 
-import com.jerry.demo.exception.code.BaseResponseCode;
-import com.jerry.demo.exception.code.ResponseCodeInterface;
+import com.jerry.demo.common.exception.code.BaseResponseCode;
+import com.jerry.demo.common.exception.code.ResponseCodeInterface;
 import lombok.Data;
 
 /**
