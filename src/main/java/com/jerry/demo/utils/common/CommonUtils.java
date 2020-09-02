@@ -1,11 +1,13 @@
 package com.jerry.demo.utils.common;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.jerry.demo.utils.date.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.*;
 
 /**
  * @author: Jerry
@@ -46,13 +48,23 @@ public class CommonUtils {
      * 生成32位编码
      * @return string
      */
-    public static String getUUID() {
-        String uuid = UUID.randomUUID().toString().trim().replaceAll("-", "");
-        return uuid;
+    public static String getUuid() {
+        return UUID.randomUUID().toString().trim().replaceAll("-", "");
     }
 
     /**
-     * Java集合之List多级递归菜单
+     * 线程池工具类
+     *
+     * @param threadPoolName  线程池名称
+     * @param corePoolSize    核心线程数
+     * @param maximumPoolSize 最大线程数
+     * @param queueSize       队列容量
+     * @return ExecutorService
      */
+    public static ExecutorService getExecutorService(String threadPoolName, int corePoolSize, int maximumPoolSize, int queueSize) {
+        ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat(threadPoolName + "-%d").build();
+        return new ThreadPoolExecutor(corePoolSize, maximumPoolSize, 0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<>(queueSize), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+    }
 
 }

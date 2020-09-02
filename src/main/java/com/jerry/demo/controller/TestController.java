@@ -1,10 +1,12 @@
 package com.jerry.demo.controller;
 
+import com.jerry.demo.mapper.UserMapper;
 import com.jerry.demo.utils.IpUtil;
 import com.jerry.demo.utils.common.DataResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -15,9 +17,17 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/test")
 public class TestController {
+    @Resource
+    private UserMapper userMapper;
     @RequestMapping("/one")
     public DataResult one(HttpServletRequest request) {
         String ipAddr = IpUtil.getIpAddr(request);
         return DataResult.success(ipAddr);
+    }
+
+    @RequestMapping("/test")
+    public DataResult test() {
+        userMapper.findUserById(1);
+        return DataResult.success();
     }
 }
