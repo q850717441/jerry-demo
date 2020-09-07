@@ -25,7 +25,7 @@ public class TestController {
         return DataResult.success(ipAddr);
     }
 
-    @RequestMapping("/test")
+    @RequestMapping("/two")
     public DataResult test() {
         userMapper.findUserById(1);
         return DataResult.success();

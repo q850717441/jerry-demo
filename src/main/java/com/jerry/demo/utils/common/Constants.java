@@ -5,7 +5,12 @@ package com.jerry.demo.utils.common;
  * @create: 2020-08-06 17:21
  * @description: 常量
  */
-public class Constants {
+public interface Constants {
     /** 文件存储位置 */
-    public static final String STORAGE_LOCATION = "/Users/jerry/Downloads/";
+    String STORAGE_LOCATION = "/Users/jerry/Downloads/";
+
+    /**
+     * 禁用词 英文请小写
+     */
+    String[] STOP_WORDS = {"anonymoususer"};
 }

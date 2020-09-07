@@ -1,5 +1,9 @@
 package com.jerry.demo.utils;
 
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.HttpUtil;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,12 +13,14 @@ import java.net.UnknownHostException;
 /**
  * @author: Jerry
  * @create: 2020-08-27 14:30
- * @update: 2020-08-27
+ * @update: 2020-09-07
  * @description: IP工具类
  */
 @Slf4j
 public class IpUtil {
     private static final String UNKNOWN = "unknown";
+    /** 腾讯位置服务key配置 腾讯位置服务官网注册添加key */
+    private static final String QQLBS_KEY = "你的腾讯位置服务key";
 
     /**
      * 获取用户真实IP地址，不使用request.getRemoteAddr()的原因是有可能用户使用了代理软件方式避免真实IP地址,
@@ -67,5 +73,43 @@ public class IpUtil {
             log.error(e.getMessage(), e);
         }
         return "未知";
+    }
+
+
+    /**
+     * 获取IP返回地理信息
+     * @param
+     * @return
+     */
+    public String getIpCity(HttpServletRequest request){
+
+        String url = "https://apis.map.qq.com/ws/location/v1/ip?key="+ QQLBS_KEY +"&ip=" + getIpAddr(request);
+        String result = "未知";
+        try {
+            String json = HttpUtil.get(url, 3000);
+            JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
+            String status = jsonObject.get("status").getAsString();
+            if("0".equals(status)){
+                JsonObject adInfo = jsonObject.get("result").getAsJsonObject().get("ad_info").getAsJsonObject();
+                String nation = adInfo.get("nation").getAsString();
+                String province = adInfo.get("province").getAsString();
+                String city = adInfo.get("city").getAsString();
+                String district = adInfo.get("district").getAsString();
+                if(StrUtil.isNotBlank(nation)&&StrUtil.isBlank(province)){
+                    result = nation;
+                } else {
+                    result = province;
+                    if(StrUtil.isNotBlank(city)){
+                        result += " " + city;
+                    }
+                    if(StrUtil.isNotBlank(district)){
+                        result += " " + district;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.info("获取IP地理信息失败");
+        }
+        return result;
     }
 }
