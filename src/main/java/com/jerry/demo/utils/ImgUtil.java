@@ -47,18 +47,19 @@ public class ImgUtil {
     public void getImgInfo2() throws IOException, ImageReadException {
         File picture = new File(testImg);
         // 判断文件是否存在
+        System.out.println("判断文件是否存在=======================================");
         System.out.println(Imaging.hasImageFileExtension(picture));
-        System.out.println("=======================================");
+        System.out.println("获得图片结构描述=======================================");
         // 获得图片结构描述
         System.out.println(Imaging.dumpImageFile(picture));
-        System.out.println("=======================================");
+        System.out.println("获得图片信息=======================================");
         // 获得图片信息
         ImageInfo imageInfo = Imaging.getImageInfo(picture);
         System.out.println(imageInfo.getFormatName());
         System.out.println(imageInfo.getMimeType());
         System.out.println(imageInfo.getPhysicalHeightDpi());
         System.out.println(imageInfo.getPhysicalWidthDpi());
-        System.out.println("=======================================");
+        System.out.println("获得图片尺寸=======================================");
         // 获得图片尺寸
         System.out.println(Imaging.getImageSize(picture));
         System.out.println("=======================================");

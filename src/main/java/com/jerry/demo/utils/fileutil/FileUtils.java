@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -105,6 +106,23 @@ public class FileUtils {
             return fileName.substring(fileName.lastIndexOf("."));
         }
         return "";
+    }
+
+    /**
+     */
+    /**
+     * 自动获取文件字节大小转换成 kb、M、G 等单元
+     * @param file 文件
+     * @return 转换后的大小
+     */
+    public static String readableFileSize(File file) {
+        long size = file.length();
+        if (size <= 0) {
+            return "0";
+        }
+        final String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
+        int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+        return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
     }
 
 }
