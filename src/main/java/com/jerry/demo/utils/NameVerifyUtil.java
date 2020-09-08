@@ -30,7 +30,7 @@ public class NameVerifyUtil {
      * 普通用户11位手机号
      * 10、11、12开头的号码已分配给特定机构
      */
-    private static final Pattern pMobile = Pattern.compile(regMobile);
+    private static final Pattern P_MOBILE = Pattern.compile(regMobile);
 
     /**
      * 邮箱
@@ -44,10 +44,7 @@ public class NameVerifyUtil {
             return false;
         }
         Matcher m = pUsername.matcher(v);
-        if(m.matches()){
-            return true;
-        }
-        return false;
+        return m.matches();
     }
 
     public static boolean mobile(String v){
@@ -55,22 +52,15 @@ public class NameVerifyUtil {
         if(StrUtil.isBlank(v)){
             return false;
         }
-        Matcher m = pMobile.matcher(v);
-        if(m.matches()){
-            return true;
-        }
-        return false;
+        Matcher m = P_MOBILE.matcher(v);
+        return m.matches();
     }
 
     public static boolean email(String v){
-
         if(StrUtil.isBlank(v)){
             return false;
         }
         Matcher m = pEmail.matcher(v);
-        if(m.matches()){
-            return true;
-        }
-        return false;
+        return m.matches();
     }
 }
