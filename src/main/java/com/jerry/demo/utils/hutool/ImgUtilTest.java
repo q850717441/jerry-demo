@@ -1,4 +1,4 @@
-package com.jerry.demo.utils.hutool.core;
+package com.jerry.demo.utils.hutool;
 
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.io.FileUtil;

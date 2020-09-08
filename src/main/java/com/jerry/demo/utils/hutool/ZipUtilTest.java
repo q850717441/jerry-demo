@@ -1,4 +1,4 @@
-package com.jerry.demo.utils.hutool.util;
+package com.jerry.demo.utils.hutool;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ZipUtil;

@@ -1,7 +1,7 @@
 package com.jerry.demo.common.limit;
 
 import com.google.common.collect.ImmutableList;
-import com.jerry.demo.utils.HttpContextUtil;
+import com.jerry.demo.utils.httputil.HttpContextUtil;
 import com.jerry.demo.utils.IpUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

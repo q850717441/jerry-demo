@@ -1,4 +1,4 @@
-package com.jerry.demo.utils;
+package com.jerry.demo.utils.httputil;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

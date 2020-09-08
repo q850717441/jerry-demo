@@ -5,7 +5,7 @@ import com.jerry.demo.domain.vo.VideoTransCodeVO;
 import com.jerry.demo.domain.vo.VideoVO;
 import com.jerry.demo.utils.common.DataResult;
 import com.jerry.demo.utils.fileutil.FileDownload;
-import com.jerry.demo.utils.httputil.HttpUtil;
+import com.jerry.demo.utils.httputil.HttpRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,7 +70,7 @@ public class MlTestController {
         data.put("signature", "eNmS0Drh45pcXsJWx3dPQG6buMIHnz60");//加密秘钥
         //todo 缺少回调地址
         data.put("callback", "/ml/transcodeCallback");//回调地址
-        return HttpUtil.sendPost1(url, data);
+        return HttpRequest.sendPost1(url, data);
     }
 
     public static String createTask() {
@@ -91,7 +91,7 @@ public class MlTestController {
         data.put("outputs", outputs);
         data.put("callback", "100");//转码回调
         data.put("signature", "eNmS0Drh45pcXsJWx3dPQG6buMIHnz60");//加密秘钥
-        return HttpUtil.sendPost1(url, data);
+        return HttpRequest.sendPost1(url, data);
     }
 
 
