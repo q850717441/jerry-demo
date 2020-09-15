@@ -20,6 +20,7 @@ import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.http.HtmlUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.jerry.demo.controller.TestController;
 import com.jerry.demo.domain.User;
@@ -118,6 +119,9 @@ public class HutoolTest {
         String jsonListStr = JSONUtil.parse(userList).toString();
         //JSON字符串转化为列表
         userList = JSONUtil.toList(new JSONArray(jsonListStr), User.class);
+        //JSON字符串转JSONObject对象
+        JSONObject jsonObject = JSONUtil.parseObj(jsonStr);
+        String s1 = jsonObject.getStr("属性名");
         log.info("jsonUtil toList:{}", userList);
     }
 
