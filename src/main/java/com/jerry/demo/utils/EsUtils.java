@@ -20,17 +20,23 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.client.indices.GetIndexRequest;
+import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.rest.RestStatus;
+import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -163,32 +169,85 @@ public class EsUtils<T> {
      * 查询搜索
      * @param index 索引
      * @param field 字段
-     * @param key 关键词
-     * @param from 起始位置
+     * @param keyword 关键词
+     * @param pageNo 起始位置
      * @param size 查询数量
      */
-    public SearchResponse search(String index, String field, String key, Integer from, Integer size) throws IOException {
+    public SearchResponse search(String index, String field, String keyword, Integer pageNo, Integer size) throws IOException {
         SearchRequest searchRequest = new SearchRequest(index);
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
         /**
          * 使用QueryBuilder
-         * termQuery("key", obj) 完全匹配,根据某字段来搜索
-         * termsQuery("key", obj1, obj2..) 一次匹配多个值
-         * matchQuery("key", Obj) 单个匹配, field不支持通配符, 前缀具高级特性
+         * termQuery("keyword", obj) 完全匹配,根据某字段来搜索
+         * termsQuery("keyword", obj1, obj2..) 一次匹配多个值
+         * matchQuery("keyword", Obj) 单个匹配, field不支持通配符, 前缀具高级特性
          * multiMatchQuery("text", "field1", "field2"..); 匹配多个字段, field有通配符也行
          * matchAllQuery(); 匹配所有文件
          */
 //        MatchAllQueryBuilder matchAllQueryBuilder = QueryBuilders.matchAllQuery();
-        TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery(field, key);
+        TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery(field, keyword);
+//        MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(field, keyword);
         sourceBuilder.query(termQueryBuilder);
-        //控制搜素
-        sourceBuilder.from(from);
+        //分页
+        sourceBuilder.from(pageNo);
         sourceBuilder.size(size);
         //最大搜索时间。
         sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
         searchRequest.source(sourceBuilder);
         SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
         return searchResponse;
+    }
 
+    /**
+     * 实现搜索功能，带高亮
+     */
+    public List<Map<String, Object>> searchContentHighlighter(String index, String field, String keyword, int pageNo, int pageSize) throws IOException {
+        // 基本的参数判断!
+        if (pageNo <= 0) {
+            pageNo = 0;
+        }
+        // 基本的条件搜索
+        SearchRequest searchRequest = new SearchRequest(index);
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        // 精准匹配 QueryBuilders 根据自己要求配置查询条件即可!
+        TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery(field, keyword);
+        sourceBuilder.query(termQueryBuilder);
+        // 高亮构建!
+        HighlightBuilder highlightBuilder = new HighlightBuilder(); //生成高亮查询器
+        //高亮查询字段
+        highlightBuilder.field(field);
+        //如果要多个字段高亮,这项要为false
+        highlightBuilder.requireFieldMatch(false);
+        //高亮设置
+        highlightBuilder.preTags("<span style=\"color:red\">");
+        highlightBuilder.postTags("</span>");
+        sourceBuilder.highlighter(highlightBuilder);
+        // 分页
+        sourceBuilder.from(pageNo);
+        sourceBuilder.size(pageSize);
+        //最大搜索时间。
+        sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
+        // 搜索
+        searchRequest.source(sourceBuilder);
+        SearchResponse response = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+        // 解析结果!
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (SearchHit hit : response.getHits()) {
+            //获取高亮字段
+            Map<String, HighlightField> highlightFields = hit.getHighlightFields();
+            HighlightField titleField = highlightFields.get(field);
+            Map<String, Object> source = hit.getSourceAsMap();
+            //千万记得要记得判断是不是为空,不然你匹配的第一个结果没有高亮内容,那么就会报空指 针异常
+            if (titleField != null) {
+                Text[] fragments = titleField.fragments();
+                StringBuilder name = new StringBuilder();
+                for (Text text : fragments) {
+                    name.append(text);
+                }
+                source.put(field, name.toString());//高亮字段替换掉原本的内容
+            }
+            list.add(source);
+        }
+        return list;
     }
 }

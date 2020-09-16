@@ -16,6 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author: Jerry
@@ -115,13 +117,13 @@ public class ElasticsearchTest {
     @Test
     public void testBulkRequest() throws IOException {
         ArrayList<User> userList = new ArrayList<>();
-        userList.add(new User(1L, "姜涛1", 1, "850717441@qq.com"));
-        userList.add(new User(2L, "姜涛2", 2, "850717441@qq.com"));
-        userList.add(new User(3L, "姜涛3", 3, "850717441@qq.com"));
-        userList.add(new User(4L, "姜涛4", 4, "850717441@qq.com"));
-        userList.add(new User(5L, "姜涛5", 5, "850717441@qq.com"));
-        userList.add(new User(6L, "姜涛6", 6, "850717441@qq.com"));
-        userList.add(new User(7L, "姜涛7", 7, "850717441@qq.com"));
+        userList.add(new User(null, "姜涛1", 1, "850717441@qq.com"));
+        userList.add(new User(null, "你好2", 2, "850717441@qq.com"));
+        userList.add(new User(null, "张三", 3, "850717441@qq.com"));
+        userList.add(new User(null, "李四", 4, "850717441@qq.com"));
+        userList.add(new User(null, "王鹏", 5, "850717441@qq.com"));
+        userList.add(new User(null, "张家辉", 6, "850717441@qq.com"));
+        userList.add(new User(null, "彭丽媛", 7, "850717441@qq.com"));
         boolean result = esUtils.bulkAdd("jerry_index", userList);
         System.out.println(result);
     }
@@ -131,12 +133,22 @@ public class ElasticsearchTest {
      */
     @Test
     public void testSearch() throws IOException {
-        SearchResponse response = esUtils.search("jerry_index", "age", "7", 0, 10);
+        SearchResponse response = esUtils.search("jerry_index", "email", "", 0, 10);
         System.out.println(JSON.toJSONString(response.getHits()));
         System.out.println("================SearchHit==================");
         for (SearchHit documentFields : response.getHits().getHits()) {
             System.out.println(documentFields.getSourceAsMap());
         }
+    }
+
+
+    /**
+     * 搜索高亮测试
+     */
+    @Test
+    public void testSearchContentHighlighter() throws IOException {
+        List<Map<String, Object>> list = esUtils.searchContentHighlighter("jerry_index", "name","张", 0, 10);
+        list.forEach(System.out::println);
     }
 }
 
