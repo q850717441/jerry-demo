@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -14,12 +16,16 @@ import lombok.experimental.Accessors;
  */
 @Data
 @TableName(value = "user")
+@AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
 public class User {
-    @TableId(value = "id",type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
+    @TableField(value = "name")
     private String name;
     @TableField(value = "age")
     private Integer age;
+    @TableField(value = "email")
     private String email;
 }
