@@ -123,7 +123,7 @@ public class HttpRequest {
     /**
      * 用HTTP的方式发送JSON报文请求
      */
-    public static String sendPost1(String urlStr, JSONObject obj) {
+    public static String sendHttpPost(String urlStr, JSONObject obj) {
         String resp = null;
         String query = obj.toString();
         log.info("发送到URL的报文为：" + query);

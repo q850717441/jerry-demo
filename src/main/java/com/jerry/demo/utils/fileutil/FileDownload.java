@@ -131,7 +131,7 @@ public class FileDownload {
         conn.setConnectTimeout(3 * 1000);
         //防止屏蔽程序抓取而放回403错误
         conn.setRequestProperty("User-Agent", "Mozilla/4.0(compatible;MSIE 5.0;Windows NT;DigExt)");
-        Long totalSize = Long.parseLong(conn.getHeaderField("Content-Length"));
+        long totalSize = Long.parseLong(conn.getHeaderField("Content-Length"));
         if (totalSize > 0) {
             FileUtils.copyURLToFile(url, new File(filePath));
         } else {

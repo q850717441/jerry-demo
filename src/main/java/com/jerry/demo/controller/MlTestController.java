@@ -70,7 +70,7 @@ public class MlTestController {
         data.put("signature", "eNmS0Drh45pcXsJWx3dPQG6buMIHnz60");//加密秘钥
         //todo 缺少回调地址
         data.put("callback", "/ml/transcodeCallback");//回调地址
-        return HttpRequest.sendPost1(url, data);
+        return HttpRequest.sendHttpPost(url, data);
     }
 
     public static String createTask() {
@@ -91,7 +91,7 @@ public class MlTestController {
         data.put("outputs", outputs);
         data.put("callback", "100");//转码回调
         data.put("signature", "eNmS0Drh45pcXsJWx3dPQG6buMIHnz60");//加密秘钥
-        return HttpRequest.sendPost1(url, data);
+        return HttpRequest.sendHttpPost(url, data);
     }
 
 

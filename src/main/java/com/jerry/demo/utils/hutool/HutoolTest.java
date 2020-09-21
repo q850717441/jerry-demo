@@ -9,6 +9,7 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.map.MapUtil;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -374,6 +376,20 @@ public class HutoolTest {
          * HtmlUtil.removeAllHtmlAttr 去除指定标签的所有属性
          * HtmlUtil.filter 过滤 HTML 文本，防止 XSS 攻击
          */
+    }
+
+
+    /**
+     *
+     */
+    @Test
+    public void fileUtil() {
+        //获得文件的扩展名（后缀名），扩展名不带“.”
+        String extName = FileUtil.extName("/Users/jerry/Files/oss/testVideo.mp4");
+        //创建File对象，自动识别相对或绝对路径，相对路径将自动从ClassPath下寻找
+        File file = FileUtil.file("/Users/jerry/Files/oss/testVideo.mp4");
+        //修改文件或目录的文件名，不变更路径，只是简单修改文件名
+        File testVideo1 = FileUtil.rename(file, "testVideo1", false);
     }
 
     /**
