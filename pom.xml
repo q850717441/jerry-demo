@@ -195,7 +195,9 @@
                 </configuration>
             </plugin>
             <plugin>
+                <!-- maven-antrun-plugin 提供从Maven内运行Ant任务的功能或者自定义脚本，报错不影响使用 -->
                 <artifactId>maven-antrun-plugin</artifactId>
+                <!--绑定mvn package命令，当执行package这个maven命令打包项目的同时会把target目录下的jar包给copy到docker目录去-->
                 <executions>
                     <execution>
                         <phase>package</phase>
