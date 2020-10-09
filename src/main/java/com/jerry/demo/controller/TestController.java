@@ -16,11 +16,15 @@ import javax.servlet.http.HttpServletRequest;
  * @description: 测试功能接口
  */
 @RestController
-@RequestMapping("/test")
 @Slf4j
 public class TestController {
     @Resource
     private UserMapper userMapper;
+
+    @RequestMapping("/")
+    public String index() {
+        return "hello jerry";
+    }
 
     @RequestMapping("/hello")
     public DataResult hello() {
