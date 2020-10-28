@@ -25,6 +25,12 @@ spring:
   #关闭检测templates文件
   freemarker:
     check-template-location: false
+
+mybatis-plus:
+  type-enums-package: com.jerry.demo.common.enums
+  configuration:
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+
 file:
   #文件上传目录 绝对路径 末尾请加 /
 #  path: F:/files/ #windows

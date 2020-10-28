@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.jerry.demo.common.enums.UserState;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -22,4 +23,6 @@ public class User {
     @TableField(value = "age")
     private Integer age;
     private String email;
+
+    private UserState userState;
 }

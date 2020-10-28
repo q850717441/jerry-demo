@@ -1,6 +1,5 @@
 package com.jerry.demo.test;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jerry.demo.domain.User;
 import com.jerry.demo.mapper.UserMapper;
@@ -32,6 +31,7 @@ public class MybatisPlusApplicationTests {
         userMapper.insert(user);
         System.out.println("user = " + user.getId());
     }
+
 
     @Test
     public void pageSelect() {
