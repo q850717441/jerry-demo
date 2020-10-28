@@ -5,7 +5,6 @@ import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.convert.Convert;
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUnit;
@@ -50,25 +49,7 @@ import java.util.*;
  */
 @Slf4j
 public class HutoolTest {
-    /**
-     * 类型转换工具类，用于各种类型数据的转换。
-     * 平时我们转换类型经常会面临类型转换失败的问题，要写try catch代码，有了它，就不用写了！
-     */
-    @Test
-    public void convert() {
-        //转换为字符串
-        int a = 1;
-        String aStr = Convert.toStr(a);
-        //转换为指定类型数组
-        String[] b = {"1", "2", "3", "4"};
-        Integer[] bArr = Convert.toIntArray(b);
-        //转换为日期对象
-        String dateStr = "2017-05-06";
-        Date date = Convert.toDate(dateStr);
-        //转换为列表
-        String[] strArr = {"a", "b", "c", "d"};
-        List<String> strList = Convert.toList(String.class, strArr);
-    }
+
 
     /**
      * 日期时间工具类，定义了一些常用的日期时间操作方法。
