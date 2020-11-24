@@ -4,6 +4,7 @@ server:
 spring:
   application:
     name: jerry-demo
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mybatis_plus_demo?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
@@ -30,6 +31,12 @@ spring:
       client:
         reactive:
           endpoints: 127.0.0.1:9200
+
+
+mybatis-plus:
+  type-enums-package: com.jerry.demo.common.enums
+  configuration:
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
 
 file:
   #文件上传目录 绝对路径 末尾请加 /

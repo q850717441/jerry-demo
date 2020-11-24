@@ -31,3 +31,4 @@ build/
 
 # Project exclude paths
 /out/
+/src/main/docker/demo-1.0.jar

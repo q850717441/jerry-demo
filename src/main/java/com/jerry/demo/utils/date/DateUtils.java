@@ -8,6 +8,8 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -578,6 +580,12 @@ public class DateUtils {
             cal.add(Calendar.MINUTE, num);
         }
         return cal.getTime();
+    }
+
+    public static int getCalcAge(Integer y, Integer m, Integer d) {
+        LocalDate birthDate = LocalDate.of(y, m, d);
+        LocalDate currentDate = LocalDate.now();
+        return Period.between(birthDate, currentDate).getYears();
     }
 
 }
