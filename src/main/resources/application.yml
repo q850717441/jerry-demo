@@ -30,6 +30,7 @@ mybatis-plus:
   type-enums-package: com.jerry.demo.common.enums
   configuration:
     default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 file:
   #文件上传目录 绝对路径 末尾请加 /
